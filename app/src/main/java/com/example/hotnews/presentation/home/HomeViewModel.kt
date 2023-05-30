@@ -1,5 +1,7 @@
 package com.example.hotnews.presentation.home
 
+import android.app.Application
+import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.example.hotnews.BuildConfig
@@ -15,8 +17,9 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor(
-    private val repository: NewsRepository
-) : ViewModel() {
+    private val repository: NewsRepository,
+    application: Application
+) : AndroidViewModel(application = application) {
 
     private val _articlesState = MutableStateFlow(emptyList<Articles>())
     val articles = _articlesState
@@ -27,7 +30,8 @@ class HomeViewModel @Inject constructor(
 
     init {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            val news = repository.getTopHeadlines(country = "us", apiKey = BuildConfig.API_KEY)
+            val news = repository.getTopHeadlines(country = application
+                .resources.configuration.locales[0].country, apiKey = BuildConfig.API_KEY)
 
             if (news is Result.Success && news.data != null) {
                 _articlesState.value = news.data.articles

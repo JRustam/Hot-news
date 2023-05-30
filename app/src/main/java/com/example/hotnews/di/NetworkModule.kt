@@ -1,6 +1,6 @@
 package com.example.hotnews.di
 
-import android.os.Build
+import com.example.hotnews.BuildConfig
 import com.example.hotnews.data.NewsService
 import dagger.Module
 import dagger.Provides
@@ -26,7 +26,7 @@ object NetworkModule {
 
     @Provides
     fun providesRetrofit(): Retrofit = Retrofit.Builder()
-        .baseUrl("")
+        .baseUrl(BuildConfig.BASE_URL)
         .addConverterFactory(GsonConverterFactory.create())
         .client(okHttpClient)
         .build()

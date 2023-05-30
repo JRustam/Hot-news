@@ -2,6 +2,7 @@ package com.example.hotnews.presentation.home
 
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.hotnews.BuildConfig
 import com.example.hotnews.data.network.response.Articles
 import com.example.hotnews.presentation.repository.NewsRepository
 import com.example.hotnews.utils.Result
@@ -24,9 +25,9 @@ class HomeViewModel @Inject constructor(
 
     }
 
-    fun fetchTopHeadlines(apiKey: String) {
+    init {
         viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
-            val news = repository.getTopHeadlines(country = "us", apiKey = apiKey)
+            val news = repository.getTopHeadlines(country = "us", apiKey = BuildConfig.API_KEY)
 
             if (news is Result.Success && news.data != null) {
                 _articlesState.value = news.data.articles

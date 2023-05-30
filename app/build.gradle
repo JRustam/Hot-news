@@ -87,6 +87,9 @@ dependencies {
     //Coil
     implementation("io.coil-kt:coil-compose:2.4.0")
 
+    //Hilt-ViewModel
+    implementation "androidx.hilt:hilt-navigation-compose:1.1.0-alpha01"
+
     //ViewModel
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.6.1"
 

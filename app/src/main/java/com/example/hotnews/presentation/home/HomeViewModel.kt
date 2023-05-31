@@ -16,16 +16,18 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class HomeViewModel @Inject constructor(
+class HomeViewModel @Inject constructor (
     private val repository: NewsRepository,
     application: Application
 ) : AndroidViewModel(application = application) {
 
     private val _articlesState = MutableStateFlow(emptyList<Articles>())
     val articles = _articlesState
+    private val _isLoadingState = MutableStateFlow(true)
+    val isLoading = _isLoadingState
 
     private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
-
+        _isLoadingState.value = false
     }
 
     init {
@@ -35,8 +37,8 @@ class HomeViewModel @Inject constructor(
 
             if (news is Result.Success && news.data != null) {
                 _articlesState.value = news.data.articles
+                _isLoadingState.value = false
             }
         }
     }
-
 }

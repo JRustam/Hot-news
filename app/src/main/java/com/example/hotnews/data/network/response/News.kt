@@ -15,7 +15,7 @@ data class Articles (
     @SerializedName("url")
     val url: String,
     @SerializedName("content")
-    val content: String,
+    val content: String?,
     @SerializedName("urlToImage")
     val urlToImage: String?
 )

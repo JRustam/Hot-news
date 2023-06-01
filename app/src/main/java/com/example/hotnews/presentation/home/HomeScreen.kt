@@ -39,14 +39,16 @@ import com.example.hotnews.R
 import com.example.hotnews.data.network.response.Articles
 
 @Composable
-fun HomeScreen(viewModel: HomeViewModel = hiltViewModel()) {
-    NewsList(viewModel.articles.collectAsState().value, viewModel.isLoading.collectAsState().value)
+fun HomeScreen(modifier: Modifier, viewModel: HomeViewModel = hiltViewModel()) {
+    NewsList(modifier = modifier,
+        viewModel.articles.collectAsState().value,
+        viewModel.isLoading.collectAsState().value)
 }
 
 @Composable
-fun NewsList(articles: List<Articles>, isLoading: Boolean) {
+fun NewsList(modifier: Modifier, articles: List<Articles>, isLoading: Boolean) {
     Column(
-        modifier = Modifier.fillMaxSize(),
+        modifier = modifier.fillMaxSize(),
         verticalArrangement = Arrangement.Center,
         horizontalAlignment = Alignment.CenterHorizontally
     ) {
@@ -55,10 +57,10 @@ fun NewsList(articles: List<Articles>, isLoading: Boolean) {
 
     val uriHandler = LocalUriHandler.current
 
-    LazyColumn(modifier = Modifier.padding(10.dp)) {
+    LazyColumn(modifier = modifier.padding(10.dp)) {
         items(articles) {
             Card(
-                modifier = Modifier
+                modifier = modifier
                     .padding(vertical = 10.dp)
                     .fillMaxWidth()
                     .clickable {
@@ -70,7 +72,7 @@ fun NewsList(articles: List<Articles>, isLoading: Boolean) {
                 colors = CardDefaults.outlinedCardColors(Color.Black)
             ) {
                 AsyncImage(
-                    modifier = Modifier
+                    modifier = modifier
                         .padding(top = if (it.urlToImage.isNullOrBlank()) 10.dp else 0.dp)
                         .fillMaxWidth()
                         .height(300.dp),
@@ -81,7 +83,7 @@ fun NewsList(articles: List<Articles>, isLoading: Boolean) {
                 )
 
                 Text(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                     text = it.title,
                     overflow = TextOverflow.Ellipsis,
                     color = Color.White,
@@ -96,7 +98,7 @@ fun NewsList(articles: List<Articles>, isLoading: Boolean) {
                 LinkedText(article = it)
 
                 Text(
-                    modifier = Modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
                     text = it.content ?: "",
                     overflow = TextOverflow.Ellipsis,
                     color = Color.White,

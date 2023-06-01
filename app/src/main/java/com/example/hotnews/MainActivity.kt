@@ -34,7 +34,7 @@ class MainActivity : ComponentActivity() {
                 val navController = rememberNavController()
                 Scaffold(
                     content = { padding ->
-                        Navigation(modifier = Modifier.padding(padding), navController = navController)
+                        Navigation(modifier = Modifier.padding(0.dp), navController = navController)
                     },
                     bottomBar = {
                     BottomBar(navController = navController,

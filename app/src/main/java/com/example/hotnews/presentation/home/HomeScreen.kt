@@ -3,10 +3,12 @@ package com.example.hotnews.presentation.home
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
@@ -60,30 +62,26 @@ fun NewsList(modifier: Modifier, articles: List<Articles>, isLoading: Boolean) {
     LazyColumn(modifier = modifier.padding(10.dp)) {
         items(articles) {
             Card(
-                modifier = modifier
-                    .padding(vertical = 10.dp)
+                modifier = modifier.padding(vertical = 15.dp)
                     .fillMaxWidth()
+                    .wrapContentHeight(align = Alignment.Top)
                     .clickable {
                         uriHandler.openUri(it.url)
                     },
-
                 shape = RoundedCornerShape(8.dp),
                 elevation = CardDefaults.cardElevation(6.dp),
                 colors = CardDefaults.outlinedCardColors(Color.Black)
             ) {
                 AsyncImage(
-                    modifier = modifier
-                        .padding(top = if (it.urlToImage.isNullOrBlank()) 10.dp else 0.dp)
-                        .fillMaxWidth()
-                        .height(300.dp),
+                    modifier = modifier.fillMaxSize(),
                     model = it.urlToImage,
                     error = painterResource(id = R.drawable.ic_error),
                     contentDescription = "urlToImage",
-                    contentScale = ContentScale.Crop
+                    contentScale = ContentScale.FillBounds
                 )
 
                 Text(
-                    modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    modifier = modifier.padding(vertical = 8.dp, horizontal = 5.dp),
                     text = it.title,
                     overflow = TextOverflow.Ellipsis,
                     color = Color.White,
@@ -98,7 +96,7 @@ fun NewsList(modifier: Modifier, articles: List<Articles>, isLoading: Boolean) {
                 LinkedText(article = it)
 
                 Text(
-                    modifier = modifier.padding(horizontal = 8.dp, vertical = 8.dp),
+                    modifier = modifier.padding(vertical = 8.dp, horizontal = 5.dp),
                     text = it.content ?: "",
                     overflow = TextOverflow.Ellipsis,
                     color = Color.White,

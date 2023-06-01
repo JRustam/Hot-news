@@ -22,7 +22,7 @@ fun BottomBar(
     val currentDestination = navBackStackEntry?.destination
 
     NavigationBar(
-        containerColor = Color.DarkGray,
+        containerColor = Color.Black,
         tonalElevation = 5.dp
     ) {
         items.forEach { item ->

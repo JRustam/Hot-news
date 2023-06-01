@@ -15,8 +15,8 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 fun BottomBar(
     navController: NavHostController,
     items: List<Screens>,
-    onItemClick: (Screens) -> Unit) {
-
+    onItemClick: (Screens) -> Unit
+) {
     NavigationBar(
         containerColor = Color.Black,
         tonalElevation = 5.dp

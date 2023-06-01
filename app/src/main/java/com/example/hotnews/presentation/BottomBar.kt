@@ -15,11 +15,7 @@ import androidx.navigation.compose.currentBackStackEntryAsState
 fun BottomBar(
     navController: NavHostController,
     items: List<Screens>,
-    modifier: Modifier = Modifier,
     onItemClick: (Screens) -> Unit) {
-
-    val navBackStackEntry by navController.currentBackStackEntryAsState()
-    val currentDestination = navBackStackEntry?.destination
 
     NavigationBar(
         containerColor = Color.Black,

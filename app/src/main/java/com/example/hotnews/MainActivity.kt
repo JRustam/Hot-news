@@ -37,18 +37,18 @@ class MainActivity : ComponentActivity() {
                         Navigation(modifier = Modifier.padding(0.dp), navController = navController)
                     },
                     bottomBar = {
-                    BottomBar(navController = navController,
-                        items = listOf(
-                            Screens.HOME,
-                            Screens.SEARCH
-                        ) ,
-                        onItemClick = {
-                        navController.navigate(it.route)
-                    }
-                    )
-                },
+                        BottomBar(navController = navController,
+                            items = listOf(
+                                Screens.HOME,
+                                Screens.SEARCH
+                            ),
+                            onItemClick = {
+                                navController.navigate(it.route)
+                            }
+                        )
+                    },
 
-               )
+                    )
             }
         }
     }

@@ -31,9 +31,11 @@ class HomeViewModel @Inject constructor (
     }
 
     init {
-        viewModelScope.launch(Dispatchers.IO + exceptionHandler) {
+        viewModelScope.launch(exceptionHandler) {
             val news = repository.getTopHeadlines(country = application
                 .resources.configuration.locales[0].country, apiKey = BuildConfig.API_KEY)
+
+            println("Scope: $coroutineContext")
 
             if (news is Result.Success && news.data != null) {
                 _articlesState.value = news.data.articles

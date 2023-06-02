@@ -24,6 +24,7 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalUriHandler
+import androidx.compose.ui.platform.UriHandler
 import androidx.compose.ui.res.painterResource
 import androidx.compose.ui.text.SpanStyle
 import androidx.compose.ui.text.TextStyle
@@ -93,7 +94,7 @@ fun NewsList(modifier: Modifier, articles: List<Articles>, isLoading: Boolean) {
                     maxLines = 2
                 )
 
-                LinkedText(article = it)
+                LinkedText(article = it, uriHandler = uriHandler)
 
                 Text(
                     modifier = modifier.padding(vertical = 8.dp, horizontal = 5.dp),
@@ -112,7 +113,7 @@ fun NewsList(modifier: Modifier, articles: List<Articles>, isLoading: Boolean) {
 }
 
 @Composable
-fun LinkedText(article: Articles) {
+fun LinkedText(article: Articles, uriHandler: UriHandler) {
     val annotatedString = buildAnnotatedString {
         pushStringAnnotation(tag = article.url, annotation = article.url)
 
@@ -128,8 +129,6 @@ fun LinkedText(article: Articles) {
 
         pop()
     }
-
-    val uriHandler = LocalUriHandler.current
 
     ClickableText(
         modifier = Modifier.padding(vertical = 5.dp, horizontal = 8.dp),

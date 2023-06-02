@@ -7,6 +7,7 @@ import androidx.lifecycle.viewModelScope
 import com.example.hotnews.BuildConfig
 import com.example.hotnews.data.network.response.Articles
 import com.example.hotnews.presentation.repository.NewsRepository
+import com.example.hotnews.utils.ExceptionHandler
 import com.example.hotnews.utils.Result
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.CoroutineExceptionHandler
@@ -26,16 +27,16 @@ class HomeViewModel @Inject constructor (
     private val _isLoadingState = MutableStateFlow(true)
     val isLoading = _isLoadingState
 
-    private val exceptionHandler = CoroutineExceptionHandler { _, _ ->
+    private val exceptionHandler = CoroutineExceptionHandler { _, throwable ->
         _isLoadingState.value = false
+
+        ExceptionHandler.handleException(throwable)
     }
 
     init {
         viewModelScope.launch(exceptionHandler) {
             val news = repository.getTopHeadlines(country = application
                 .resources.configuration.locales[0].country, apiKey = BuildConfig.API_KEY)
-
-            println("Scope: $coroutineContext")
 
             if (news is Result.Success && news.data != null) {
                 _articlesState.value = news.data.articles

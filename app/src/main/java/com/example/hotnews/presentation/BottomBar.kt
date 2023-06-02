@@ -26,7 +26,7 @@ fun BottomBar(
                 selected = item.route == navController.currentDestination?.route,
                 onClick = { onItemClick(item) },
                 icon = {
-                    Icon(imageVector = item.icon, contentDescription = null)
+                    Icon(imageVector = item.icon, contentDescription = null, tint = Color.White)
                 }
             )
         }

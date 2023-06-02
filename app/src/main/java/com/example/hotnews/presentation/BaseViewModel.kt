@@ -24,9 +24,9 @@ open class BaseViewModel @Inject constructor(
 
     fun handleException(throwable: Throwable) {
         if (throwable is UnknownHostException || !isNetworkAvailable(context = application)) {
-            exceptionMessage.value = application.getString(R.string.no_network)
+            _exceptionState.value = application.getString(R.string.no_network)
         } else {
-            exceptionMessage.value = application.getString(R.string.error)
+            _exceptionState.value = application.getString(R.string.error)
         }
     }
 

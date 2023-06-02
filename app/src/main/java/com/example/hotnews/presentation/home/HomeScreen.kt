@@ -1,12 +1,13 @@
 package com.example.hotnews.presentation.home
 
+
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
+import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.wrapContentHeight
 import androidx.compose.foundation.lazy.LazyColumn
@@ -31,6 +32,7 @@ import androidx.compose.ui.text.TextStyle
 import androidx.compose.ui.text.buildAnnotatedString
 import androidx.compose.ui.text.font.FontFamily
 import androidx.compose.ui.text.font.FontWeight
+import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.text.style.TextDecoration
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.text.withStyle
@@ -46,6 +48,10 @@ fun HomeScreen(modifier: Modifier, viewModel: HomeViewModel = hiltViewModel()) {
     NewsList(modifier = modifier,
         viewModel.articles.collectAsState().value,
         viewModel.isLoading.collectAsState().value)
+
+    if (viewModel.exceptionMessage.collectAsState().value != "") {
+        ShowMessage(viewModel.exceptionMessage.collectAsState().value)
+    }
 }
 
 @Composable
@@ -63,7 +69,8 @@ fun NewsList(modifier: Modifier, articles: List<Articles>, isLoading: Boolean) {
     LazyColumn(modifier = modifier.padding(10.dp)) {
         items(articles) {
             Card(
-                modifier = modifier.padding(vertical = 15.dp)
+                modifier = modifier
+                    .padding(vertical = 15.dp)
                     .fillMaxWidth()
                     .wrapContentHeight(align = Alignment.Top)
                     .clickable {
@@ -141,4 +148,18 @@ fun LinkedText(article: Articles, uriHandler: UriHandler) {
                     uriHandler.openUri(stringAnnotation.item)
                 }
         })
+}
+
+@Composable
+fun ShowMessage(message: String) {
+    Box(contentAlignment = Alignment.Center, modifier = Modifier.fillMaxHeight()) {
+        Text(
+            text = message,
+            modifier = Modifier.padding(start = 25.dp),
+            textAlign = TextAlign.Center,
+            color = Color.Black,
+            fontSize = 20.sp,
+            fontWeight = FontWeight.Medium
+        )
+    }
 }

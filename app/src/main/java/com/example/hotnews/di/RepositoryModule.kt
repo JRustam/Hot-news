@@ -15,5 +15,5 @@ object RepositoryModule {
 
     @Provides
     fun providesNewsRepository(newsService: NewsService): NewsRepository =
-        NewsRepositoryImpl(newsService = newsService)
+        NewsRepositoryImpl(newsService = newsService, dispatchers = Dispatchers.IO)
 }

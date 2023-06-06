@@ -10,7 +10,7 @@ import java.lang.Exception
 import javax.inject.Inject
 
 class NewsRepositoryImpl @Inject constructor(
-    private val dispatchers: CoroutineDispatcher = Dispatchers.IO,
+    private val dispatchers: CoroutineDispatcher,
     private val newsService: NewsService
 ) :  NewsRepository {
 

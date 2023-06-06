@@ -36,6 +36,7 @@ class MainActivity : ComponentActivity() {
                     content = { padding ->
                         Navigation(modifier = Modifier.padding(0.dp), navController = navController)
                     },
+
                     bottomBar = {
                         BottomBar(navController = navController,
                             items = listOf(
